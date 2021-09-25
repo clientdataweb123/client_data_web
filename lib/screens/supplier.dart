@@ -21,14 +21,14 @@ class supplier extends StatelessWidget {
       children: [
         Expanded(
           child: SizedBox(
-            height: 600,
+            height: cards.length * 300.0,
             child: GridView.builder(
-                itemCount: cards.length + 1,
+                itemCount: cards.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
+                  crossAxisCount: 4,
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.75,
+                  childAspectRatio: 1,
                 ),
                 itemBuilder: (context, index) => ItemCard(
                       product: cards[index],

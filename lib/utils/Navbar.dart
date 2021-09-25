@@ -96,7 +96,7 @@ class MobileNavbar extends StatelessWidget {
       child: Container(
         child: Column(children: <Widget>[
           Text(
-            "RetroPortal Studio",
+            "Data center",
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
           ),
@@ -120,11 +120,20 @@ class MobileNavbar extends StatelessWidget {
                   width: 30,
                 ),
                 showlogout
-                    ? Text(
-                        "Portfolio",
-                        style: TextStyle(color: Colors.white),
+                    ? MaterialButton(
+                        color: Colors.pink,
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20.0))),
+                        onPressed: () {
+                          context.read<AuthenticationService>().signOut();
+                        },
+                        child: Text(
+                          "logout",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       )
-                    : Text(''),
+                    : Text('')
               ],
             ),
           )

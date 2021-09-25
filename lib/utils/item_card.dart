@@ -13,32 +13,37 @@ class ItemCard extends StatelessWidget {
     return GestureDetector(
       // onTap: press,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: Container(
               padding: EdgeInsets.all(20),
-              // For  demo we use fixed height  and width
-              // Now we dont need them
               // height: 180,
               // width: 160,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Hero(tag: "${product.id}", child: Text(product.email)),
+              child: Column(
+                children: [
+                  Text(product.email),
+                  Text(product.name),
+                ],
+              ), //     child: Hero(tag: "${product.id}",   )
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            child: Text(
-              // products is out demo list
-              product.name,
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 5),
+          //   child: Text(
+          //     // products is out demo list
+          //     product.name,
+          //   ),
+          // ),
           Text(
-            "\$${product.phone}",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            "${product.id}",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           )
         ],
       ),
