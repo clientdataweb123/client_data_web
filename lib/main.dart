@@ -15,15 +15,18 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(providers: [
-      Provider<AuthenticationService>(
-        create: (_) => AuthenticationService(FirebaseAuth.instance),
-      ),
-      StreamProvider(
-        create: (context) =>
-            context.read<AuthenticationService>().authStateChanges,
-      )
-    ], child: MaterialApp(home: AuthenticationWrapper()));
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationService>(
+          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<AuthenticationService>().authStateChanges,
+        )
+      ],
+      child: MaterialApp(home: AuthenticationWrapper()),
+    );
   }
 }
 

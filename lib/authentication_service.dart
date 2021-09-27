@@ -1,4 +1,6 @@
+import 'package:client_data/screens/signin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -11,8 +13,10 @@ class AuthenticationService {
   /// This won't pop routes so you could do something like
   /// Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   /// after you called this method if you want to pop all routes.
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _firebaseAuth.signOut();
+    Navigator.push(
+        (context), MaterialPageRoute(builder: (context) => signin()));
   }
 
   /// There are a lot of different ways on how you can do exception handling.

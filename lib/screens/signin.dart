@@ -1,6 +1,10 @@
+// import 'dart:js';
+
 import 'package:client_data/authentication_service.dart';
 import 'package:client_data/screens/select.dart';
 import 'package:client_data/screens/signup.dart';
+import 'package:client_data/utils/appTextForm.dart';
+import 'package:client_data/utils/customButton.dart';
 import 'package:client_data/utils/default.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
@@ -16,58 +20,35 @@ class signin extends StatelessWidget {
 }
 
 class _formLogin extends StatelessWidget {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   Widget build(BuildContext context) {
-    TextEditingController email = TextEditingController();
-    TextEditingController password = TextEditingController();
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    void func2() {
+      Navigator.push(
+          (context), MaterialPageRoute(builder: (context) => signup()));
+    }
 
+    void func() {
+      context
+          .read<AuthenticationService>()
+          .signIn(
+            email: email.text.trim(),
+            password: password.text.trim(),
+          )
+          .then((value) => print(value));
+    }
+
+    // r = context;
     return Column(
       children: [
-        TextField(
-          controller: email,
-          decoration: InputDecoration(
-            hintText: 'Enter email or Phone numbe',
-            hintStyle: TextStyle(color: Colors.white),
-            filled: true,
-            fillColor: Colors.blueGrey.shade500,
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade500),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade500),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        SizedBox(height: 30),
-        TextField(
-          controller: password,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            hintStyle: TextStyle(color: Colors.white),
-            counterText: 'Forgot password?',
-            counterStyle: TextStyle(color: Colors.white),
-            suffixIcon: const Icon(
-              Icons.visibility_off_outlined,
-              color: Colors.grey,
-            ),
-            filled: true,
-            fillColor: Colors.blueGrey.shade500,
-            labelStyle: const TextStyle(fontSize: 12),
-            contentPadding: const EdgeInsets.only(left: 30),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade500),
-              borderRadius: BorderRadius.circular(15),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.blueGrey.shade500),
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
+        appTextForm(
+            cont: email, s: "Enter email or Phone number", obscure: false),
+        SizedBox(height: 10),
+        appTextForm(cont: password, s: "Password", obscure: true),
+        SizedBox(height: 10),
+        // customButton("Sign in", func),
         Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -83,10 +64,17 @@ class _formLogin extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ))),
             onPressed: () {
-              context.read<AuthenticationService>().signIn(
+              context
+                  .read<AuthenticationService>()
+                  .signIn(
                     email: email.text.trim(),
                     password: password.text.trim(),
-                  );
+                  )
+                  .then((value) {
+                if (value == "Signed in")
+                  Navigator.push((context),
+                      MaterialPageRoute(builder: (context) => selectscreen()));
+              });
 
               // Navigator.push((context),
               //     MaterialPageRoute(builder: (context) => selectscreen()));
@@ -103,25 +91,26 @@ class _formLogin extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        ElevatedButton(
-          child: const SizedBox(
-              width: 190,
-              height: 50,
-              child: Center(
-                  child: Text(
-                "Register a new account",
-                style: TextStyle(color: Colors.white),
-              ))),
-          onPressed: () => Navigator.push(
-              (context), MaterialPageRoute(builder: (context) => signup())),
-          style: ElevatedButton.styleFrom(
-            primary: Colors.deepPurple,
-            onPrimary: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-        ),
+        customButton("Register a new account", func2),
+        // ElevatedButton(
+        //   child: const SizedBox(
+        //       width: 190,
+        //       height: 50,
+        //       child: Center(
+        //           child: Text(
+        //         "Register a new account",
+        //         style: TextStyle(color: Colors.white),
+        //       ))),
+        //   onPressed: () => Navigator.push(
+        //       (context), MaterialPageRoute(builder: (context) => signup())),
+        //   style: ElevatedButton.styleFrom(
+        //     primary: Colors.deepPurple,
+        //     onPrimary: Colors.redAccent,
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(15),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }

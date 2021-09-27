@@ -19,6 +19,8 @@ dependencies:
   firebase_auth: ^0.18.0+1
 
   provider: ^4.3.2+1
+  cloud_firestore: ^0.14.4
+  firebase_storage: ^5.2.0
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/lp_image.png
+    - assets/images/Keanu_Reeves.png
+    - assets/images/profile.jpg
   fonts:
     - family: Montserrat
       fonts:

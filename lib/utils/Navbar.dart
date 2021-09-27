@@ -69,7 +69,9 @@ class DesktopNavbar extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20.0))),
                         onPressed: () {
-                          context.read<AuthenticationService>().signOut();
+                          context
+                              .read<AuthenticationService>()
+                              .signOut(context);
                         },
                         child: Text(
                           "logout",
@@ -126,7 +128,9 @@ class MobileNavbar extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20.0))),
                         onPressed: () {
-                          context.read<AuthenticationService>().signOut();
+                          context
+                              .read<AuthenticationService>()
+                              .signOut(context);
                         },
                         child: Text(
                           "logout",
