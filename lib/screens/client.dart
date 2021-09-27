@@ -1,32 +1,32 @@
+import 'package:client_data/screens/add_client.dart';
 import 'package:client_data/screens/add_supplier.dart';
 import 'package:client_data/screens/select.dart';
+import 'package:client_data/utils/PostClient.dart';
 import 'package:client_data/utils/card.dart';
 import 'package:client_data/utils/customButton.dart';
 import 'package:client_data/utils/default.dart';
-import 'package:client_data/utils/item_card.dart';
+import 'package:client_data/utils/itemCardClient.dart';
 import 'package:client_data/utils/model.dart';
+import 'package:client_data/utils/modelclient.dart';
 import 'package:client_data/utils/post.dart';
 import 'package:flutter/material.dart';
 
-// return WillPopScope(
-//   onWillPop: () async => true,
-//   child: Scaffold(
-class SupplierScreen extends StatelessWidget {
+class ClientScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // key: _scaffold,
-      body: defaultWidget(supplier(), false, true),
+      body: defaultWidget(Client(), false, true),
     );
   }
 }
 
 BuildContext globalContext;
 
-class supplier extends StatelessWidget {
+class Client extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Stream<List<DonaloPost>> l;
+    // Stream<List<DonaloPost>> l;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Column(
@@ -38,14 +38,14 @@ class supplier extends StatelessWidget {
               height: 50,
               child: Center(
                   child: Text(
-                "add new person",
+                "Add new Client",
                 style: TextStyle(color: Colors.white),
               ))),
           onPressed: () {
-            l = PostData().getPosts();
-            print(l);
-            Navigator.push(
-                (context), MaterialPageRoute(builder: (context) => add_item()));
+            // l = PostDataClient().getPosts() as Stream<List<DonaloPostClient>>;
+            // print(l);
+            Navigator.push((context),
+                MaterialPageRoute(builder: (context) => addClient()));
           },
           style: ElevatedButton.styleFrom(
             primary: Colors.purple.shade900,
@@ -62,10 +62,11 @@ class supplier extends StatelessWidget {
           children: [
             Expanded(
               child: SizedBox(
-                height: cards.length * 120.0,
+                height: cards.length * 110.0,
                 child: StreamBuilder(
-                  stream: PostData().getPosts(),
-                  builder: (context, AsyncSnapshot<List<DonaloPost>> snapshot) {
+                  stream: PostDataClient().getPosts(),
+                  builder: (context,
+                      AsyncSnapshot<List<DonaloPostClient>> snapshot) {
                     if (snapshot.hasData) {
                       var data = snapshot.data;
                       return GridView.builder(
@@ -86,8 +87,8 @@ class supplier extends StatelessWidget {
                                     ? width / 1000 * 0.5
                                     : width / 1000 * 1.5,
                           ),
-                          itemBuilder: (context, index) => ItemCard(
-                                product: data[index],
+                          itemBuilder: (context, index) => ItemCardClient(
+                                clientproduct: data[index],
                               ));
                     } else {
                       return Center(

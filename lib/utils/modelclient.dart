@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DonaloPost {
+class DonaloPostClient {
   final String postID;
   final String userID;
   final String cusName;
@@ -8,16 +8,15 @@ class DonaloPost {
   final double ports;
   final String dest;
 
-  DonaloPost({
+  DonaloPostClient({
     this.postID,
     this.userID,
     this.cusName,
     this.offeredRate,
     this.ports,
     this.dest,
-    String clientName,
   });
-  DonaloPost.fromMap(Map<String, dynamic> map)
+  DonaloPostClient.fromMap(Map<String, dynamic> map)
       : this(
             postID: map['postID'],
             userID: map['userID'],

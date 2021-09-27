@@ -32,6 +32,17 @@ class DesktopNavbar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                )),
+            SizedBox(
+              width: 10,
+            ),
             Text(
               "Data Center",
               style: TextStyle(
@@ -39,6 +50,7 @@ class DesktopNavbar extends StatelessWidget {
                   color: Colors.white,
                   fontSize: 30),
             ),
+            Spacer(),
             Row(
               children: <Widget>[
                 Text(

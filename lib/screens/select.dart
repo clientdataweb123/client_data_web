@@ -1,3 +1,4 @@
+import 'package:client_data/screens/client.dart';
 import 'package:client_data/screens/supplier.dart';
 import 'package:client_data/utils/default.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class select extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ))),
             onPressed: () => Navigator.push((context),
-                MaterialPageRoute(builder: (context) => SupplierScreen())),
+                MaterialPageRoute(builder: (context) => ClientScreen())),
             style: ElevatedButton.styleFrom(
               primary: Colors.deepPurple,
               onPrimary: Colors.redAccent,
