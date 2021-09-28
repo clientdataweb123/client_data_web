@@ -30,7 +30,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/lp_image.png
-    - assets/images/Keanu_Reeves.png
+    - assets/images/client.jpg
     - assets/images/profile.jpg
   fonts:
     - family: Montserrat

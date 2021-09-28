@@ -2,10 +2,13 @@ import 'package:client_data/utils/Navbar.dart';
 import 'package:flutter/material.dart';
 
 class defaultWidget extends StatelessWidget {
-  defaultWidget(this.widget, [this.showimage = false, this.showlogout = true]);
+  bool showBackicon;
   Widget widget;
   bool showimage;
   bool showlogout;
+  defaultWidget(@required this.widget, this.showimage, this.showlogout,
+      this.showBackicon);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -25,7 +28,7 @@ class defaultWidget extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              Navbar(showlogout),
+              Navbar(showlogout, showBackicon),
               Padding(
                 padding: const EdgeInsets.symmetric(),
                 child: LayoutBuilder(

@@ -16,7 +16,7 @@ class SupplierScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: _scaffold,
-      body: defaultWidget(supplier(), false, true),
+      body: defaultWidget(supplier(), false, true, true),
     );
   }
 }

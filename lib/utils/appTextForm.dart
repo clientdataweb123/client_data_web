@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
 class appTextForm extends StatelessWidget {
-  appTextForm({this.cont, this.s, this.obscure = false, this.warning = ''});
+  appTextForm(
+      {this.cont,
+      this.s,
+      this.obscure = false,
+      this.warning = '',
+      this.validator});
 
   TextEditingController cont = TextEditingController();
   bool obscure;
   String s, warning;
+  final Function validator;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: validator,
       cursorColor: Colors.white,
       style: TextStyle(color: Colors.white),
       controller: cont,

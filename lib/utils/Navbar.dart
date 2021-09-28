@@ -3,18 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
 class Navbar extends StatelessWidget {
-  Navbar([this.showlogout = false]);
+  Navbar(@required this.showlogout, this.showBackicon);
+  bool showBackicon;
   bool showlogout;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 1200) {
-          return DesktopNavbar(showlogout);
+          return DesktopNavbar(showlogout, showBackicon);
         } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1200) {
-          return DesktopNavbar(showlogout);
+          return DesktopNavbar(showlogout, showBackicon);
         } else {
-          return MobileNavbar(showlogout);
+          return MobileNavbar(showlogout, showBackicon);
         }
       },
     );
@@ -22,8 +23,13 @@ class Navbar extends StatelessWidget {
 }
 
 class DesktopNavbar extends StatelessWidget {
-  DesktopNavbar([this.showlogout = false]);
+  bool showBackicon;
   bool showlogout;
+
+  DesktopNavbar(this.showlogout, this.showBackicon)
+      : assert(showBackicon != null),
+        assert(showlogout != null);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,14 +38,16 @@ class DesktopNavbar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                )),
+            showBackicon
+                ? IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ))
+                : Text(''),
             SizedBox(
               width: 10,
             ),
@@ -101,14 +109,29 @@ class DesktopNavbar extends StatelessWidget {
 }
 
 class MobileNavbar extends StatelessWidget {
-  MobileNavbar([this.showlogout = false]);
+  bool showBackicon;
   bool showlogout;
+  MobileNavbar(this.showlogout, this.showBackicon);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       child: Container(
         child: Column(children: <Widget>[
+          showBackicon
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ))
+              : Text(''),
+          SizedBox(
+            width: 10,
+          ),
           Text(
             "Data center",
             style: TextStyle(

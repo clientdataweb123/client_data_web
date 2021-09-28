@@ -9,13 +9,32 @@ class selectscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: defaultWidget(select(), true),
+      body: defaultWidget(select(), true, true, true),
     );
   }
 }
 
-class select extends StatelessWidget {
+class select extends StatefulWidget {
   const select();
+
+  @override
+  State<select> createState() => _selectState();
+}
+
+class _selectState extends State<select> with TickerProviderStateMixin {
+  AnimationController controller;
+  bool inProgress = false;
+  bool inProgress1 = false;
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 5),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.repeat(reverse: true);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +47,25 @@ class select extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             child: ElevatedButton(
-              child: const SizedBox(
+              child: SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: Center(
-                      child: Text(
-                    "SUPPLIER",
-                    style: TextStyle(color: Colors.white),
-                  ))),
-              onPressed: () => Navigator.push((context),
-                  MaterialPageRoute(builder: (context) => SupplierScreen())),
+                      child: inProgress
+                          ? CircularProgressIndicator(
+                              value: controller.value * 2,
+                              semanticsLabel: 'Linear progress indicator',
+                            )
+                          : Text(
+                              "SUPPLIER",
+                              style: TextStyle(color: Colors.white),
+                            ))),
+              onPressed: () {
+                inProgress = true;
+                Navigator.push((context),
+                    MaterialPageRoute(builder: (context) => SupplierScreen()));
+                inProgress = false;
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.deepPurple,
                 onPrimary: Colors.redAccent,
@@ -51,16 +79,25 @@ class select extends StatelessWidget {
             height: 20,
           ),
           ElevatedButton(
-            child: const SizedBox(
+            child: SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: Center(
-                    child: Text(
-                  "Client",
-                  style: TextStyle(color: Colors.white),
-                ))),
-            onPressed: () => Navigator.push((context),
-                MaterialPageRoute(builder: (context) => ClientScreen())),
+                    child: inProgress1
+                        ? CircularProgressIndicator(
+                            value: controller.value,
+                            semanticsLabel: 'Linear progress indicator',
+                          )
+                        : Text(
+                            "Client",
+                            style: TextStyle(color: Colors.white),
+                          ))),
+            onPressed: () {
+              inProgress1 = true;
+              Navigator.push((context),
+                  MaterialPageRoute(builder: (context) => ClientScreen()));
+              inProgress1 = false;
+            },
             style: ElevatedButton.styleFrom(
               primary: Colors.deepPurple,
               onPrimary: Colors.redAccent,
@@ -72,5 +109,10 @@ class select extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

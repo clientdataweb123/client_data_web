@@ -41,15 +41,22 @@ class _ItemCardClientState extends State<ItemCardClient> {
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/images/Keanu_Reeves.png",
+                    "assets/images/client.jpg",
                     width: 50,
-                    height: 50,
+                    height: 40,
                     //fit: BoxFit.cover,
                   ),
-                  Text(widget.clientproduct.cusName),
-                  SizedBox(height: 20),
-                  Text(widget.clientproduct.ports.toString()),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text("${widget.clientproduct.cusName}"),
+                  SizedBox(height: 5),
+                  Text("Ports:" + widget.clientproduct.ports.toString()),
+                  SizedBox(height: 5),
                   Text(widget.clientproduct.dest),
+                  SizedBox(height: 5),
+                  Text("Rate: ${widget.clientproduct.offeredRate.toString()}"),
+                  Spacer(),
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.delete_forever),

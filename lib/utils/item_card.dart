@@ -37,15 +37,21 @@ class _ItemCardState extends State<ItemCard> {
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/images/Keanu_Reeves.png",
+                    "assets/images/client.jpg",
                     width: 50,
-                    height: 50,
+                    height: 40,
                     //fit: BoxFit.cover,
                   ),
-                  Text(widget.product.cusName),
-                  SizedBox(height: 20),
-                  Text(widget.product.ports.toString()),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text("${widget.product.cusName}"),
+                  SizedBox(height: 5),
+                  Text("Ports:" + widget.product.ports.toString()),
+                  SizedBox(height: 5),
                   Text(widget.product.dest),
+                  SizedBox(height: 5),
+                  Text("Rate: ${widget.product.offeredRate.toString()}"),
                   Spacer(),
                   IconButton(
                     icon: Icon(Icons.delete_forever),

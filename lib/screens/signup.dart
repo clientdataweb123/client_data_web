@@ -9,7 +9,7 @@ class signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: defaultWidget(_signup(), true, true),
+      body: defaultWidget(_signup(), true, false, true),
     );
   }
 }

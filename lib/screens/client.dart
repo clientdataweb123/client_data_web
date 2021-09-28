@@ -16,7 +16,7 @@ class ClientScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // key: _scaffold,
-      body: defaultWidget(Client(), false, true),
+      body: defaultWidget(Client(), false, true, true),
     );
   }
 }

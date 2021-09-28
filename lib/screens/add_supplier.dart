@@ -12,7 +12,7 @@ class add_item extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // ignore: missing_required_param
-      body: defaultWidget(addDetail(), true, false),
+      body: defaultWidget(addDetail(), true, true, true),
     );
   }
 }
@@ -22,9 +22,29 @@ TextEditingController ports = TextEditingController();
 TextEditingController dest = TextEditingController();
 TextEditingController offer = TextEditingController();
 
-class addDetail extends StatelessWidget {
+class addDetail extends StatefulWidget {
+  @override
+  State<addDetail> createState() => _addDetailState();
+}
+
+class _addDetailState extends State<addDetail> with TickerProviderStateMixin {
+  AnimationController controller;
+  bool inProgress = false;
+  String status = 'Reqiured';
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 5),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.repeat(reverse: true);
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     void func() async {
+      inProgress = true;
       var x = DonaloPost(
           cusName: name.text,
           offeredRate: int.parse(offer.text),
@@ -34,6 +54,7 @@ class addDetail extends StatelessWidget {
         print('$value');
         Navigator.push((context),
             MaterialPageRoute(builder: (context) => SupplierScreen()));
+        inProgress = false;
       });
     }
 
@@ -48,8 +69,20 @@ class addDetail extends StatelessWidget {
         appTextForm(cont: offer, s: "offered rate", obscure: false),
         SizedBox(height: 30),
         const SizedBox(height: 40),
-        customButton("add customer", func)
+        customButton(
+            inProgress
+                ? CircularProgressIndicator(
+                    value: controller.value,
+                    semanticsLabel: "Linear progress indicator",
+                  )
+                : Text("Add new Customer"),
+            func)
       ],
     );
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

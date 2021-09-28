@@ -15,7 +15,7 @@ class addClient extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // ignore: missing_required_param
-      body: defaultWidget(addDetailClient(), true, false),
+      body: defaultWidget(addDetailClient(), true, true, true),
     );
   }
 }
@@ -25,9 +25,29 @@ TextEditingController ports = TextEditingController();
 TextEditingController dest = TextEditingController();
 TextEditingController offer = TextEditingController();
 
-class addDetailClient extends StatelessWidget {
+class addDetailClient extends StatefulWidget {
+  @override
+  State<addDetailClient> createState() => _addDetailClientState();
+}
+
+class _addDetailClientState extends State<addDetailClient>
+    with TickerProviderStateMixin {
+  AnimationController controller;
+  bool inProgress = false;
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 5),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.repeat(reverse: true);
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     void func() async {
+      inProgress = true;
       var x = DonaloPostClient(
           cusName: name.text,
           offeredRate: int.parse(offer.text),
@@ -37,6 +57,7 @@ class addDetailClient extends StatelessWidget {
         print('$value');
         Navigator.push(
             (context), MaterialPageRoute(builder: (context) => ClientScreen()));
+        inProgress = false;
       });
     }
 
@@ -50,9 +71,21 @@ class addDetailClient extends StatelessWidget {
         SizedBox(height: 30),
         appTextForm(cont: offer, s: "offered rate", obscure: false),
         SizedBox(height: 30),
-        const SizedBox(height: 40),
-        customButton("add client", func)
+        SizedBox(height: 40),
+        customButton(
+            inProgress
+                ? CircularProgressIndicator(
+                    value: controller.value,
+                    semanticsLabel: "Linear progress indicator",
+                  )
+                : Text("Add new Customer"),
+            func)
       ],
     );
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
